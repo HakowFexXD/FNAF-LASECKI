@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Menu — Lasecki (FNAF-style)</title>
+  <title>FIVE NIGHT'S AT LASECKI</title>
+  <link href="https://fonts.cdnfonts.com/css/five-nights-at-freddys" rel="stylesheet">
   <style>
     /* ---- Reset ---- */
     *{box-sizing:border-box;margin:0;padding:0}
@@ -27,16 +28,20 @@
     .menu-inner{background:rgba(7,7,7,0.35);backdrop-filter: blur(2px);padding:28px;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.7)}
 
     /* ---- Title ---- */
-    .title{font-size:48px;letter-spacing:2px;margin-bottom:6px;font-weight:700;text-transform:uppercase;text-shadow:0 6px 24px rgba(0,0,0,0.9);}
-    .subtitle{font-size:13px;opacity:0.8;margin-bottom:22px}
-
-    /* ---- Menu Buttons ---- */
-    .menu{display:flex;flex-direction:column;gap:12px;align-items:center}
-    .btn{
-      width:320px;max-width:88%;padding:14px 18px;border-radius:10px;border:2px solid rgba(255,255,255,0.06);background:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.45));
-      color:#f6e9d6;font-weight:700;font-size:18px;cursor:pointer;position:relative;overflow:hidden;transition:transform .15s ease, box-shadow .15s ease;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
-    }
+.title {
+  font-family: 'Five Nights At Freddys', sans-serif;
+  font-size: 64px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #f6e9d6;
+  text-shadow:
+    2px 2px 4px rgba(0,0,0,0.8),
+    -2px -2px 4px rgba(0,0,0,0.8);
+  background: linear-gradient(to bottom, #fffdf3, #d6c9a2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: flicker 3.6s steps(4) infinite;
+}
     .btn:hover{transform:translateY(-4px);box-shadow:0 18px 44px rgba(0,0,0,0.75)}
 
     /* subtle inner glow */
@@ -65,6 +70,16 @@
 
     /* ---- Responsive ---- */
     @media (max-width:480px){.title{font-size:32px}.btn{width:92%}}
+
+    .scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(0,0,0,0) 50%, rgba(0,0,0,0.08) 51%);
+  background-size: 100% 3px;
+  mix-blend-mode: multiply;
+  opacity: 0.45;
+}
   </style>
 </head>
 <body>
@@ -73,7 +88,7 @@
 
   <div class="menu-wrap" role="main">
     <div class="menu-inner" aria-label="Menu gry">
-      <div class="title flicker">Lasecki</div>
+<div class="title">FIVE NIGHT'S AT LASECKI</div>
       <div class="subtitle">Witaj w nocy — tylko menu (wersja demo)</div>
 
       <div class="menu">
@@ -126,5 +141,7 @@
       setTimeout(()=> t.classList.remove('flicker'), 5400);
     }, 600);
   </script>
+  <div class="scanlines"></div>
 </body>
 </html>
+
