@@ -9,7 +9,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-* {
+
+  .title, .menu-item, .version, .credit {
+  font-family: 'FNAF', monospace;
+}
+  @font-face {
+  font-family: 'FNAF';
+  src: url('five-nights-at-freddys.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+  {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -18,7 +28,8 @@ html, body {
   height: 100%;
   background: #000;
   overflow: hidden;
-  font-family: 'Roboto Mono', monospace;
+  body {
+  font-family: 'FNAF', monospace;
   color: #fff;
   user-select: none;
 }
@@ -267,6 +278,7 @@ document.addEventListener('keydown', e=>{
 </div>
 </body>
 </html>
+
 
 
 
