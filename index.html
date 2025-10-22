@@ -103,19 +103,6 @@ html, body {
   opacity: 0.5;
   z-index: 10; /* nad szumem */
 }
-
-/* prawa strona – obraz postaci */
-.right {
-  position: relative;
-  width: 50%;
-  height: 100%;
-  background: url('lasecki.png') center right / contain no-repeat;
-  filter: brightness(0.5) contrast(1.2);
-  opacity: 0.85;
-  animation: subtleMove 3s infinite ease-in-out;
-  z-index: 2;
-}
-
 /* efekt „kamera / static” */
 .noise {
   pointer-events: none;
@@ -126,7 +113,7 @@ html, body {
   height: 100vh;
   background-image: url('static.gif'); /* Twój własny static */
   background-size: cover;
-  opacity: 0.4; /* 40% przezroczystości */
+  opacity: 0.2; /* 40% przezroczystości */
   mix-blend-mode: screen;
   z-index: 9999; /* nad wszystkim */
   animation: staticFlicker 0.2s infinite;
@@ -276,6 +263,7 @@ document.addEventListener('keydown', e=>{
 </div>
 </body>
 </html>
+
 
 
 
