@@ -47,22 +47,26 @@ html, body {
   animation: flicker 2.5s infinite steps(5);
   letter-spacing: 0.5px;
 }
-  
 .menu {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* większy odstęp */
+  gap: 20px; /* większy odstęp między pozycjami */
 }
-
-
- .menu-item {
-  font-size: 1.5rem; /* większy tekst */
-  font-weight: 700;  /* pogrubienie */
+.menu-item {
+  font-size: 1.5rem; /* większe menu */
+  font-weight: 700; /* pogrubienie */
   opacity: 0.7;
   transition: opacity 0.2s;
 }
 .menu-item.active {
   opacity: 1;
+}
+.menu-item::before {
+  content: "";
+  margin-right: 8px;
+}
+.menu-item.active::before {
+  content: ">> ";
 }
 .version {
   position: absolute;
@@ -77,6 +81,7 @@ html, body {
   right: 40px;
   font-size: 0.7rem;
   opacity: 0.5;
+  z-index: 10; /* nad szumem */
 }
 
 /* prawa strona – obraz postaci */
@@ -88,17 +93,18 @@ html, body {
   filter: brightness(0.5) contrast(1.2);
   opacity: 0.85;
   animation: subtleMove 3s infinite ease-in-out;
+  z-index: 2;
 }
 
 /* efekt „kamera / static” */
 .noise {
   pointer-events: none;
-  position: fixed; /* zmiana na fixed, żeby obejmował całą stronę niezależnie od scrolla */
+  position: fixed; /* cała strona */
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-image: url('static.gif'); /* Twój szum */
+  background-image: url('my_static.png'); /* Twój własny static */
   background-size: cover;
   opacity: 0.4; /* 40% przezroczystości */
   mix-blend-mode: screen;
@@ -106,13 +112,6 @@ html, body {
   animation: staticFlicker 0.2s infinite;
 }
 
-@keyframes myNoise {
-  0% { background-position: 0 0; opacity: 0.1; }
-  25% { background-position: 50% 50%; opacity: 0.2; }
-  50% { background-position: 100% 0; opacity: 0.12; }
-  75% { background-position: 50% 100%; opacity: 0.18; }
-  100% { background-position: 0 0; opacity: 0.1; }
-}
 /* poziome zakłócenia */
 .scanlines {
   pointer-events: none;
@@ -126,7 +125,7 @@ html, body {
   z-index: 5;
 }
 
-/* efekt migotania */
+/* efekt migotania tekstu */
 @keyframes flicker {
   0%, 15%, 18%, 22%, 53%, 57%, 100% {opacity: 1;}
   20%, 24%, 55% {opacity: 0.35;}
@@ -138,15 +137,18 @@ html, body {
   50% { transform: translateY(2px); }
 }
 
-/* delikatny ruch szumu */
-@keyframes noiseShift {
-  0% { background-position: 0 0; }
-  100% { background-position: 100% 100%; }
+/* animacja szumu */
+@keyframes staticFlicker {
+  0% { opacity: 0.35; background-position: 0 0; }
+  25% { opacity: 0.45; background-position: 50% 50%; }
+  50% { opacity: 0.38; background-position: 100% 0; }
+  75% { opacity: 0.42; background-position: 50% 100%; }
+  100% { opacity: 0.4; background-position: 0 0; }
 }
 
 /* efekt lekkiego „drgania kamery” */
 body {
-  animation: cameraShake 0.2s infinite alternate;
+  animation: fadeIn 2s ease-out, cameraShake 0.2s infinite alternate;
 }
 @keyframes cameraShake {
   from { transform: translate(0px, 0px); }
@@ -154,9 +156,6 @@ body {
 }
 
 /* delikatne wejście ekranu */
-body {
-  animation: fadeIn 2s ease-out, cameraShake 0.2s infinite alternate;
-}
 @keyframes fadeIn {
   from {opacity: 0;}
   to {opacity: 1;}
@@ -210,4 +209,5 @@ document.addEventListener('keydown', e=>{
 </script>
 </body>
 </html>
+
 
