@@ -1,147 +1,190 @@
 <!doctype html>
 <html lang="pl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FIVE NIGHT'S AT LASECKI</title>
-  <link href="https://fonts.cdnfonts.com/css/five-nights-at-freddys" rel="stylesheet">
-  <style>
-    /* ---- Reset ---- */
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>FIVE NIGHT’S AT LASECKI</title>
 
-    /* ---- Background ---- */
-    body{
-      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-      background: radial-gradient(ellipse at center, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.85) 60%), url('lasecki.png') center/cover no-repeat;
-      color:#f6e9d6;
-      -webkit-font-smoothing:antialiased;
-      display:flex;align-items:center;justify-content:center;
-      padding:40px;
-    }
+<!-- Monospace font podobny do oryginału -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    /* Dark vignette */
-    .vignette{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.95));}
-
-    /* ---- Card/Container ---- */
-    .menu-wrap{position:relative;z-index:2;width:100%;max-width:760px;padding:32px;border-radius:12px;text-align:center}
-    .menu-inner{background:rgba(7,7,7,0.35);backdrop-filter: blur(2px);padding:28px;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.7)}
-
-    /* ---- Title ---- */
-.title {
-  font-family: 'Five Nights At Freddys', sans-serif;
-  font-size: 64px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: #f6e9d6;
-  text-shadow:
-    2px 2px 4px rgba(0,0,0,0.8),
-    -2px -2px 4px rgba(0,0,0,0.8);
-  background: linear-gradient(to bottom, #fffdf3, #d6c9a2);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: flicker 3.6s steps(4) infinite;
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-    .btn:hover{transform:translateY(-4px);box-shadow:0 18px 44px rgba(0,0,0,0.75)}
+html, body {
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+  font-family: 'Roboto Mono', monospace;
+  color: #fff;
+}
 
-    /* subtle inner glow */
-    .btn::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));pointer-events:none}
+/* kontener */
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px;
+}
 
-    /* Highlight color for active/selected button */
-    .btn.primary{border-color:rgba(200,40,40,0.7)}
-    .btn.primary:hover{box-shadow:0 20px 60px rgba(200,40,40,0.14)}
-
-    /* ---- Small footer info ---- */
-    .info{margin-top:18px;font-size:12px;opacity:0.7}
-
-    /* ---- Flicker effect for title (like FNAF) ---- */
-    @keyframes flicker {
-      0%{opacity:1}
-      5%{opacity:.3}
-      8%{opacity:1}
-      11%{opacity:.5}
-      12%{opacity:1}
-      100%{opacity:1}
-    }
-    .title.flicker{animation: flicker 3.6s steps(4) infinite}
-
-    /* ---- CRT scanline overlay ---- */
-    .scanlines{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(0,0,0,0) 50%, rgba(0,0,0,0.06) 51%);background-size:100% 4px;mix-blend-mode:multiply;opacity:0.45}
-
-    /* ---- Responsive ---- */
-    @media (max-width:480px){.title{font-size:32px}.btn{width:92%}}
-
-    .scanlines {
+/* lewa część – tekst */
+.left {
+  position: relative;
+  z-index: 2;
+}
+.title {
+  font-size: 2.4rem;
+  line-height: 1.3em;
+  margin-bottom: 40px;
+  white-space: pre-line;
+  animation: flicker 3s infinite steps(6);
+}
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.menu-item {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.menu-item.active {
+  opacity: 1;
+}
+.menu-item::before {
+  content: " ";
+  margin-right: 8px;
+}
+.menu-item.active::before {
+  content: ">> ";
+}
+.version {
   position: absolute;
-  inset: 0;
+  bottom: 20px;
+  left: 0;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+.credit {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 0.7rem;
+  opacity: 0.5;
+}
+
+/* prawa strona – obraz postaci */
+.right {
+  position: relative;
+  width: 45%;
+  height: 100%;
+  background: url('lasecki.png') center right / contain no-repeat;
+  filter: brightness(0.7);
+  opacity: 0.8;
+}
+
+/* efekt „kamera / static” */
+.noise {
   pointer-events: none;
-  background-image: linear-gradient(rgba(0,0,0,0) 50%, rgba(0,0,0,0.08) 51%);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255,255,255,0.02) 0px,
+    rgba(0,0,0,0.02) 2px,
+    rgba(0,0,0,0.04) 4px
+  );
+  animation: noiseMove 0.4s infinite;
+  z-index: 3;
+  opacity: 0.25;
+}
+@keyframes noiseMove {
+  0% {background-position: 0 0;}
+  100% {background-position: 0 4px;}
+}
+
+/* lekkie zakłócenia */
+.scanlines {
+  pointer-events: none;
+  position: absolute;
+  top:0; left:0; width:100%; height:100%;
+  background-image: linear-gradient(rgba(255,255,255,0.02) 50%, rgba(0,0,0,0.1) 51%);
   background-size: 100% 3px;
   mix-blend-mode: multiply;
-  opacity: 0.45;
+  opacity: 0.5;
+  z-index: 4;
 }
-  </style>
+
+/* migotanie tytułu */
+@keyframes flicker {
+  0%,18%,22%,25%,53%,57%,100% {opacity:1;}
+  20%,24%,55% {opacity:0.4;}
+}
+
+/* delikatne pojawianie */
+body {
+  animation: fadeIn 1.5s ease-out;
+}
+@keyframes fadeIn {
+  from {opacity:0;}
+  to {opacity:1;}
+}
+</style>
 </head>
+
 <body>
-  <div class="vignette"></div>
-  <div class="scanlines"></div>
-
-  <div class="menu-wrap" role="main">
-    <div class="menu-inner" aria-label="Menu gry">
-<div class="title">FIVE NIGHT'S AT LASECKI</div>
-      <div class="subtitle">Witaj w nocy — tylko menu (wersja demo)</div>
-
+  <div class="container">
+    <div class="left">
+      <div class="title">FIVE NIGHT’S
+AT LASECKI</div>
       <div class="menu">
-        <button class="btn primary" id="new-game">Nowa gra</button>
-        <button class="btn" id="continue">Kontynuuj</button>
-        <button class="btn" id="extras">Dodatki</button>
-        <button class="btn" id="options">Opcje</button>
-        <button class="btn" id="quit">Wyjdź</button>
+        <div class="menu-item active">New Game</div>
+        <div class="menu-item">Continue</div>
+        <div class="menu-item">Custom Night</div>
       </div>
-
-      <div class="info">Obraz tła: <code>lasecki.png</code>. Umieść plik w katalogu z tą stroną.</div>
+      <div class="version">v 1.0 DEMO</div>
     </div>
+
+    <div class="right"></div>
   </div>
 
-  <script>
-    // Przyjemne kliknięcia i mały glitch przy starcie
-    function playClick() {
-      const a = new Audio();
-      a.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA='; // very short silent wav fallback
-      a.play().catch(()=>{});
-    }
-
-    document.querySelectorAll('.btn').forEach(btn=>{
-      btn.addEventListener('click', e=>{
-        playClick();
-        const id = e.currentTarget.id;
-        // Symulacja działania menu — możesz podmienić na linki lub funkcje
-        if(id === 'quit'){
-          // Nie zamykamy okna, ale pokazujemy wiadomość
-          alert('Dziękuję za grę — to tylko demo menu.');
-        } else {
-          // delikatny efekt "glitch" na przycisku
-          e.currentTarget.animate([
-            { transform: 'translateX(0px) rotate(0.01deg)' },
-            { transform: 'translateX(-6px) rotate(-0.5deg)' },
-            { transform: 'translateX(6px) rotate(0.5deg)' },
-            { transform: 'translateX(0px) rotate(0.01deg)' }
-          ], { duration: 260, iterations: 1 });
-          console.log('Wybrano:', id);
-          // example: redirect to page (uncomment to use)
-          // window.location.href = id + '.html';
-        }
-      });
-    });
-
-    // Mały losowy "flicker" tytułu na starcie
-    setTimeout(()=>{
-      const t = document.querySelector('.title');
-      t.classList.add('flicker');
-      setTimeout(()=> t.classList.remove('flicker'), 5400);
-    }, 600);
-  </script>
+  <div class="noise"></div>
   <div class="scanlines"></div>
+  <div class="credit">© 2025 Lasecki Studios</div>
+
+<script>
+/* Prosty system wyboru opcji klawiaturą */
+const items = document.querySelectorAll('.menu-item');
+let index = 0;
+
+function updateActive() {
+  items.forEach((it,i)=>{
+    it.classList.toggle('active', i===index);
+  });
+}
+
+document.addEventListener('keydown', e=>{
+  if(e.key === 'ArrowUp') {
+    index = (index - 1 + items.length) % items.length;
+    updateActive();
+  }
+  if(e.key === 'ArrowDown') {
+    index = (index + 1) % items.length;
+    updateActive();
+  }
+  if(e.key === 'Enter') {
+    alert('Selected: ' + items[index].textContent + ' (demo)');
+  }
+});
+</script>
 </body>
 </html>
-
