@@ -169,6 +169,26 @@ body {
   from {opacity: 0;}
   to {opacity: 1;}
 }
+  .loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none; /* nie przeszkadza w klikaniu */
+  transition: opacity 1s ease;
+  z-index: 10000; /* nad wszystkim */
+}
+
+.loading-screen img {
+  max-width: 50%;
+  max-height: 50%;
+}
 </style>
 </head>
 
@@ -215,9 +235,39 @@ document.addEventListener('keydown', e=>{
     alert('Selected: ' + items[index].textContent + ' (demo)');
   }
 });
+  document.addEventListener('keydown', e=>{
+  if(e.key === 'ArrowUp') {
+    index = (index - 1 + items.length) % items.length;
+    updateActive();
+  }
+  if(e.key === 'ArrowDown') {
+    index = (index + 1) % items.length;
+    updateActive();
+  }
+  if(e.key === 'Enter') {
+    const selected = items[index].textContent;
+    if(selected === 'New Game') {
+      const loading = document.querySelector('.loading-screen');
+      loading.style.pointerEvents = 'auto';
+      loading.style.opacity = '1'; // fade in
+      setTimeout(() => {
+        loading.style.opacity = '0'; // fade out
+      }, 2000); // pokazuje 2s
+      setTimeout(() => {
+        window.location.href = 'nextpage.html'; // następna strona
+      }, 2500); // po 2.5s przenosi
+    } else {
+      alert('Selected: ' + selected + ' (demo)');
+    }
+  }
+});
 </script>
+  <div class="loading-screen">
+  <img src="loading.png" alt="Loading...">
+</div>
 </body>
 </html>
+
 
 
 
