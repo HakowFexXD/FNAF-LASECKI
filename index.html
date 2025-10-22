@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>FIVE NIGHT’S AT LASECKI</title>
 
-<!-- Monospace font podobny do oryginału -->
+<!-- Font zbliżony do oryginału -->
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
@@ -20,6 +20,7 @@ html, body {
   overflow: hidden;
   font-family: 'Roboto Mono', monospace;
   color: #fff;
+  user-select: none;
 }
 
 /* kontener */
@@ -30,7 +31,7 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 60px;
+  padding: 80px 100px;
 }
 
 /* lewa część – tekst */
@@ -39,27 +40,28 @@ html, body {
   z-index: 2;
 }
 .title {
-  font-size: 2.4rem;
-  line-height: 1.3em;
-  margin-bottom: 40px;
+  font-size: 2rem;
+  line-height: 1.1em;
+  margin-bottom: 50px;
   white-space: pre-line;
-  animation: flicker 3s infinite steps(6);
+  animation: flicker 2.5s infinite steps(5);
+  letter-spacing: 0.5px;
 }
 .menu {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 .menu-item {
   font-size: 1.1rem;
-  opacity: 0.8;
+  opacity: 0.7;
   transition: opacity 0.2s;
 }
 .menu-item.active {
   opacity: 1;
 }
 .menu-item::before {
-  content: " ";
+  content: "";
   margin-right: 8px;
 }
 .menu-item.active::before {
@@ -67,15 +69,15 @@ html, body {
 }
 .version {
   position: absolute;
-  bottom: 20px;
+  bottom: 30px;
   left: 0;
-  font-size: 0.75rem;
-  opacity: 0.7;
+  font-size: 0.8rem;
+  opacity: 0.6;
 }
 .credit {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
+  bottom: 30px;
+  right: 40px;
   font-size: 0.7rem;
   opacity: 0.5;
 }
@@ -83,11 +85,12 @@ html, body {
 /* prawa strona – obraz postaci */
 .right {
   position: relative;
-  width: 45%;
+  width: 50%;
   height: 100%;
   background: url('lasecki.png') center right / contain no-repeat;
-  filter: brightness(0.7);
-  opacity: 0.8;
+  filter: brightness(0.5) contrast(1.2);
+  opacity: 0.85;
+  animation: subtleMove 3s infinite ease-in-out;
 }
 
 /* efekt „kamera / static” */
@@ -97,46 +100,67 @@ html, body {
   top: 0; left: 0;
   width: 100%;
   height: 100%;
-  background-image: repeating-linear-gradient(
-    0deg,
-    rgba(255,255,255,0.02) 0px,
-    rgba(0,0,0,0.02) 2px,
-    rgba(0,0,0,0.04) 4px
-  );
-  animation: noiseMove 0.4s infinite;
-  z-index: 3;
-  opacity: 0.25;
-}
-@keyframes noiseMove {
-  0% {background-position: 0 0;}
-  100% {background-position: 0 4px;}
-}
-
-/* lekkie zakłócenia */
-.scanlines {
-  pointer-events: none;
-  position: absolute;
-  top:0; left:0; width:100%; height:100%;
-  background-image: linear-gradient(rgba(255,255,255,0.02) 50%, rgba(0,0,0,0.1) 51%);
-  background-size: 100% 3px;
-  mix-blend-mode: multiply;
-  opacity: 0.5;
+  background-image: url('my_static.png'); /* Twój obrazek */
+  background-size: cover;
+  opacity: 0.4; /* 40% przezroczystości */
+  mix-blend-mode: screen;
   z-index: 4;
 }
 
-/* migotanie tytułu */
-@keyframes flicker {
-  0%,18%,22%,25%,53%,57%,100% {opacity:1;}
-  20%,24%,55% {opacity:0.4;}
+@keyframes myNoise {
+  0% { background-position: 0 0; opacity: 0.1; }
+  25% { background-position: 50% 50%; opacity: 0.2; }
+  50% { background-position: 100% 0; opacity: 0.12; }
+  75% { background-position: 50% 100%; opacity: 0.18; }
+  100% { background-position: 0 0; opacity: 0.1; }
+}
+/* poziome zakłócenia */
+.scanlines {
+  pointer-events: none;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 2px);
+  background-size: 100% 2px;
+  opacity: 0.3;
+  z-index: 5;
 }
 
-/* delikatne pojawianie */
+/* efekt migotania */
+@keyframes flicker {
+  0%, 15%, 18%, 22%, 53%, 57%, 100% {opacity: 1;}
+  20%, 24%, 55% {opacity: 0.35;}
+}
+
+/* ruch tła postaci */
+@keyframes subtleMove {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(2px); }
+}
+
+/* delikatny ruch szumu */
+@keyframes noiseShift {
+  0% { background-position: 0 0; }
+  100% { background-position: 100% 100%; }
+}
+
+/* efekt lekkiego „drgania kamery” */
 body {
-  animation: fadeIn 1.5s ease-out;
+  animation: cameraShake 0.2s infinite alternate;
+}
+@keyframes cameraShake {
+  from { transform: translate(0px, 0px); }
+  to { transform: translate(0.5px, -0.5px); }
+}
+
+/* delikatne wejście ekranu */
+body {
+  animation: fadeIn 2s ease-out, cameraShake 0.2s infinite alternate;
 }
 @keyframes fadeIn {
-  from {opacity:0;}
-  to {opacity:1;}
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
 </style>
 </head>
@@ -171,7 +195,6 @@ function updateActive() {
     it.classList.toggle('active', i===index);
   });
 }
-
 document.addEventListener('keydown', e=>{
   if(e.key === 'ArrowUp') {
     index = (index - 1 + items.length) % items.length;
