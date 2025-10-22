@@ -34,36 +34,45 @@ html, body {
   padding: 80px 100px;
 }
 
-/* lewa część – tekst */
+/* lewa część – tekst i menu */
 .left {
   position: relative;
   z-index: 2;
+  width: 50%; /* zajmuje lewą połowę ekranu */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* wyśrodkowanie pionowe */
+  padding-left: 80px; /* odsunięcie od lewej krawędzi */
 }
+
 .title {
-  font-size: 2rem;
-  line-height: 1.1em;
-  margin-bottom: 50px;
+  font-size: 3rem; /* większy tytuł */
+  line-height: 1.2em;
+  margin-bottom: 60px;
   white-space: pre-line;
   animation: flicker 2.5s infinite steps(5);
   letter-spacing: 0.5px;
 }
+
 .menu {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* większy odstęp między pozycjami */
+  gap: 25px; /* większy odstęp między pozycjami */
 }
+
 .menu-item {
-  font-size: 1.5rem; /* większe menu */
-  font-weight: 700; /* pogrubienie */
+  font-size: 2rem; /* większy tekst */
+  font-weight: 800; /* mocne pogrubienie */
   opacity: 0.7;
   transition: opacity 0.2s;
 }
+
 .menu-item.active {
   opacity: 1;
 }
 .menu-item::before {
   content: "";
-  margin-right: 8px;
+  margin-right: 12px;
 }
 .menu-item.active::before {
   content: ">> ";
@@ -209,5 +218,6 @@ document.addEventListener('keydown', e=>{
 </script>
 </body>
 </html>
+
 
 
